@@ -23,11 +23,11 @@
 // To compile for FOCBOX Unity, uncomment the following line.
 //#define FOCBOX_UNITY 1
 
-#define VESC_COUNT 2  // number of controllers: 1 = single, 2 = dual (set to 1 for FOCBOX Unity unless you have more than 1)
+#define VESC_COUNT 1  // number of controllers: 1 = single, 2 = dual (set to 1 for FOCBOX Unity unless you have more than 1)
 #define MOTOR_POLE_PAIRS 7
-#define WHEEL_DIAMETER_MM 192
+#define WHEEL_DIAMETER_MM 90
 #define MOTOR_PULLEY_TEETH 15
-#define WHEEL_PULLEY_TEETH 72
+#define WHEEL_PULLEY_TEETH 36
 
 // Affects the speed indicator. If MAX_SPEED_KPH is exceeded, no major disaster will happen.
 // The speed indicator will merely indicate the current speed as the max speed (all blue rectangles
@@ -35,13 +35,13 @@
 #define MAX_SPEED_KPH 50
 
 // Set to true to display the distance in miles and the speed in mph.
-#define IMPERIAL_UNITS false
+#define IMPERIAL_UNITS true
 
 // Set to true to display the temperature in Fahrenheit instead of Celsius.
 #define USE_FAHRENHEIT false
 
-#define BATTERY_S 12  // number of battery cells
-#define BATTERY_MAX_MAH 8000  // battery capacity in mAh
+#define BATTERY_S 10  // number of battery cells
+#define BATTERY_MAX_MAH 4000  // battery capacity in mAh
 #define BATTERY_USABLE_CAPACITY 0.8  // [0.0, 1.0]
 
 // If SHOW_AVG_CELL_VOLTAGE is true, average cell voltage is displayed instead of the total battery
@@ -55,7 +55,7 @@
 
 // How much the battery voltage must increase since the last remembered state so that
 // so that we think the battery has been charged.
-#define FULL_CHARGE_MIN_INCREASE 0.01  // [0.0, 1.0]
+#define FULL_CHARGE_MIN_INCREASE 1.00  // [0.0, 1.0]
 
 // Minimal percentage of the max battery voltage to consider the battery fully charged.
 // Example: With 0.97, if the max voltage is 50.4 V, then 48.888 V or more is considered fully charged.
