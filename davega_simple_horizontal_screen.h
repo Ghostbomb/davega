@@ -32,6 +32,8 @@ public:
     void heartbeat(uint32_t duration_ms, bool successful_vesc_read);
 
 protected:
+    int cellIndex = 0;
+    int cellTick = 0;
     // Have we just reset the screen? Unset by the first update() call.
     bool _just_reset = false;
 

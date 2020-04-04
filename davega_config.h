@@ -46,7 +46,7 @@
 
 // If SHOW_AVG_CELL_VOLTAGE is true, average cell voltage is displayed instead of the total battery
 // pack voltage (total voltage is divided by the number of cells).
-#define SHOW_AVG_CELL_VOLTAGE true
+#define SHOW_AVG_CELL_VOLTAGE false
 
 // The two options below are for detecting that battery has been fully charged (in which case
 // we reset the available mAh to the max value). We think that the battery has been fully charged
@@ -55,7 +55,7 @@
 
 // How much the battery voltage must increase since the last remembered state so that
 // so that we think the battery has been charged.
-#define FULL_CHARGE_MIN_INCREASE 1.00  // [0.0, 1.0]
+#define FULL_CHARGE_MIN_INCREASE 0.01  // [0.0, 1.0]
 
 // Minimal percentage of the max battery voltage to consider the battery fully charged.
 // Example: With 0.97, if the max voltage is 50.4 V, then 48.888 V or more is considered fully charged.
@@ -128,14 +128,18 @@
 #define UPDATE_DELAY 50  // ms
 
 // 0=portrait, 1=right rotated landscape, 2=reverse portrait, 3=left rotated landscape
-#define SCREEN_ORIENTATION 0
+#define SCREEN_ORIENTATION 1 //change to 1
+
+// Changes orientation for just TEXT_SCREEN to be able to see all the data while still having the main screen horizontal. 
+// Comment out to have the same orientation everywhere.
+#define SCREEN_ORIENTATION_TEXT_SCREEN 4
 
 // Screens. Uncomment the ones you want enabled.
 //#define DEFAULT_SCREEN_ENABLED 1
-//#define SIMPLE_HORIZONTAL_SCREEN_ENABLED 1
+#define SIMPLE_HORIZONTAL_SCREEN_ENABLED 1 //ENABLE
 //#define SIMPLE_HORIZONTAL_SCREEN_WITH_BATTERY_CURRENT_ENABLED 1
 //#define SIMPLE_HORIZONTAL_SCREEN_WITH_MOTOR_CURRENT_ENABLED 1
-#define SIMPLE_VERTICAL_SCREEN_ENABLED 1
+//#define SIMPLE_VERTICAL_SCREEN_ENABLED 1
 //#define SIMPLE_VERTICAL_SCREEN_WITH_BATTERY_CURRENT_ENABLED 1
 //#define SIMPLE_VERTICAL_SCREEN_WITH_MOTOR_CURRENT_ENABLED 1
 #define TEXT_SCREEN_ENABLED 1
@@ -161,10 +165,11 @@
 //    SCR_AVG_SPEED
 //    SCR_TIME_ELAPSED
 //    SCR_TIME_RIDING
+
+/* Backup
 #define TEXT_SCREEN_ITEMS { \
     SCR_FAULT_CODE, \
     SCR_MOSFET_TEMPERATURE, \
-    SCR_MOTOR_TEMPERATURE, \
     SCR_MOTOR_CURRENT, \
     SCR_BATTERY_CURRENT, \
     SCR_DUTY_CYCLE, \
@@ -173,9 +178,30 @@
     SCR_AVG_CELL_VOLTAGE, \
     SCR_BATTERY_CAPACITY_MAH, \
     SCR_BATTERY_CAPACITY_PERCENT, \
-    SCR_TRIP_DISTANCE, \
-    SCR_TOTAL_DISTANCE, \
-    SCR_SPEED, \
+    SCR_MAX_SPEED, \
+    SCR_AVG_SPEED, \
+    SCR_TIME_ELAPSED, \
+    SCR_TIME_RIDING, \
+}
+
+*/
+
+#define TEXT_SCREEN_ITEMS { \
+    SCR_CELL_VOLTAGE, \
+    SCR_CELL_VOLTAGE, \
+    SCR_CELL_VOLTAGE, \
+    SCR_CELL_VOLTAGE, \
+    SCR_CELL_VOLTAGE, \
+    SCR_CELL_VOLTAGE, \
+    SCR_CELL_VOLTAGE, \
+    SCR_CELL_VOLTAGE, \
+    SCR_CELL_VOLTAGE, \
+    SCR_CELL_VOLTAGE, \
+    SCR_MOSFET_TEMPERATURE, \
+    SCR_MIN_TOTAL_VOLTAGE, \
+    SCR_AVG_CELL_VOLTAGE, \
+    SCR_BATTERY_CAPACITY_MAH, \
+    SCR_BATTERY_CAPACITY_PERCENT, \
     SCR_MAX_SPEED, \
     SCR_AVG_SPEED, \
     SCR_TIME_ELAPSED, \

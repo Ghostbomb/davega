@@ -18,11 +18,25 @@
 */
 
 #include "davega_text_screen.h"
+#include "davega_config.h"
 #include "davega_screen.h"
 #include "davega_util.h"
 #include "vesc_comm.h"
 #include "tft_util.h"
 #include <TFT_22_ILI9225.h>
+// #include "davega.ino"
+// #include "davega_I2C.h"
+
+#ifndef SCREEN_ORIENTATION_TEXT_SCREEN
+#define SCREEN_ORIENTATION_TEXT_SCREEN SCREEN_ORIENTATION
+#endif
+
+void DavegaTextScreen::init(t_davega_screen_config *config) {
+    uint8_t save_orientation = config->orientation;
+    config->orientation = SCREEN_ORIENTATION_TEXT_SCREEN;
+    DavegaILI9225Screen::init(config);
+    config->orientation = save_orientation;
+}
 
 void DavegaTextScreen::reset() {
     _tft->fillRectangle(0, 0, _tft->maxX() - 1, _tft->maxY() - 1, COLOR_BLACK);
@@ -108,6 +122,13 @@ void DavegaTextScreen::update(t_davega_data *data) {
                 break;
             case SCR_FAULT_CODE:
                 _write_text_line(vesc_fault_code_to_string(data->vesc_fault_code), i);
+                break;
+            case SCR_CELL_VOLTAGE:
+                //for ( int tyui = 0; tyui < 10; tyui++ ){
+                // _write_text_line(Cell_Voltage[x], i);
+                String cellText = "Cell " + String(i+1);
+                _write_numeric_line(data->Cell_Voltage_IC2[i], "V", cellText.c_str(), i);
+                //}
                 break;
             default:
                 _write_text_line("ERROR: unknown item", i);

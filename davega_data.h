@@ -56,6 +56,7 @@ typedef struct {
     float trip_km;
     float session_reset_progress;
     float total_km;
+    float Cell_Voltage_IC2[10] = {};
     vesc_comm_fault_code vesc_fault_code = FAULT_CODE_NONE;
     t_davega_session_data* session;
 } t_davega_data;

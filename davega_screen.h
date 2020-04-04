@@ -41,7 +41,8 @@ typedef enum {
     SCR_AVG_SPEED,
     SCR_TIME_ELAPSED,
     SCR_TIME_RIDING,
-    SCR_FAULT_CODE
+    SCR_FAULT_CODE,
+    SCR_CELL_VOLTAGE
 } t_screen_item;
 
 typedef struct {

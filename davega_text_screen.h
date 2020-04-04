@@ -27,6 +27,7 @@
 
 class DavegaTextScreen: public DavegaILI9225Screen {
 public:
+    void init(t_davega_screen_config* config) override;
     void reset();
     void update(t_davega_data* data);
     void heartbeat(uint32_t duration_ms, bool successful_vesc_read);

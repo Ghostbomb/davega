@@ -23,19 +23,23 @@
 #include "davega_util.h"
 #include "davega_screen.h"
 #include "vesc_comm.h"
+#include "I2C_Anything.h"
 
 #define REVISION_ID "$Id$"
 #define FW_VERSION "master"
 
-//#define DEBUG
+// #define DEBUG
+
 #ifdef DEBUG
 #define D(x) Serial.println(x)
 #else
 #define D(x)
 #endif
 
-#define BUTTON_1_PIN A3
-#define BUTTON_2_PIN A2
+#define MY_ADDRESS 8
+
+#define BUTTON_1_PIN A2
+#define BUTTON_2_PIN A3
 #define BUTTON_3_PIN A1
 
 #define LEN(X) (sizeof(X) / sizeof(X[0]))
@@ -141,6 +145,13 @@ int32_t last_rpm;
 uint32_t button_1_last_up_time = 0;
 uint32_t button_2_last_up_time = 0;
 
+volatile boolean haveData = false;
+volatile float fnum;
+volatile long foo;
+volatile int i;
+#define Cell_Count BATTERY_S
+
+
 int32_t rotations_to_meters(int32_t rotations) {
     float gear_ratio = float(WHEEL_PULLEY_TEETH) / float(MOTOR_PULLEY_TEETH);
     return (rotations / MOTOR_POLE_PAIRS / gear_ratio) * WHEEL_DIAMETER_MM * PI / 1000;
@@ -176,14 +187,24 @@ bool is_battery_full(float current_volts) {
     return current_volts / max_volts > FULL_CHARGE_THRESHOLD;
 }
 
+void receiveEvent(int howMany) { //I2C Protocol
+  
+    if (howMany >= (sizeof fnum)+(sizeof i))
+    {
+    I2C_readAnything (fnum);   
+    I2C_readAnything (i);    
+    haveData = true;     
+    }  // end if have enough data
+}
+
 void setup() {
     pinMode(BUTTON_1_PIN, INPUT_PULLUP);
     pinMode(BUTTON_2_PIN, INPUT_PULLUP);
     pinMode(BUTTON_3_PIN, INPUT_PULLUP);
 
-#ifdef DEBUG
-    Serial.begin(115200);
-#endif
+    Wire.begin(MY_ADDRESS);                // join i2c bus with address #8
+    Wire.onReceive(receiveEvent); // register event
+
     vesc_comm.init(115200);
 
     if (!eeprom_is_initialized(EEPROM_MAGIC_VALUE)) {
@@ -275,7 +296,6 @@ void loop() {
         scr->heartbeat(UPDATE_DELAY, false);
         return;
     }
-
     data.mosfet_celsius = vesc_comm.get_temp_mosfet();
     data.motor_celsius = vesc_comm.get_temp_motor();
     data.motor_amps = vesc_comm.get_motor_current();
@@ -368,4 +388,24 @@ void loop() {
 
     scr->update(&data);
     scr->heartbeat(UPDATE_DELAY, true);
+
+  if (haveData)
+   {
+    #ifdef DEBUG
+   Serial.print ("Received data = ");
+   Serial.println (fnum);  
+   Serial.print ("Received data = ");
+   Serial.println (i);  
+   #endif
+   data.Cell_Voltage_IC2[i]=fnum; // write to array as data comes in
+   #ifdef DEBUG
+   for ( int i = 0; i < Cell_Count; i++ ){
+         Serial.print(String(data.Cell_Voltage_IC2[i])+" "); //displays long string of all cells
+         }
+      Serial.println();
+
+    #endif
+   haveData = false;  
+   }  // end if haveData
+//   delay(100);
 }
