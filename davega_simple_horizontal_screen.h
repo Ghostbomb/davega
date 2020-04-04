@@ -33,7 +33,7 @@ public:
 
 protected:
     int cellIndex = 0;
-    int cellTick = 0;
+    int cellTick = 5;
     // Have we just reset the screen? Unset by the first update() call.
     bool _just_reset = false;
 
