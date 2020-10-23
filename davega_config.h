@@ -26,8 +26,8 @@
 #define VESC_COUNT 1  // number of controllers: 1 = single, 2 = dual (set to 1 for FOCBOX Unity unless you have more than 1)
 #define MOTOR_POLE_PAIRS 7
 #define WHEEL_DIAMETER_MM 90
-#define MOTOR_PULLEY_TEETH 15
-#define WHEEL_PULLEY_TEETH 36
+#define MOTOR_PULLEY_TEETH 14
+#define WHEEL_PULLEY_TEETH 38
 
 // Affects the speed indicator. If MAX_SPEED_KPH is exceeded, no major disaster will happen.
 // The speed indicator will merely indicate the current speed as the max speed (all blue rectangles
@@ -132,7 +132,7 @@
 
 // Changes orientation for just TEXT_SCREEN to be able to see all the data while still having the main screen horizontal. 
 // Comment out to have the same orientation everywhere.
-#define SCREEN_ORIENTATION_TEXT_SCREEN 4
+#define SCREEN_ORIENTATION_TEXT_SCREEN 0
 
 // Screens. Uncomment the ones you want enabled.
 //#define DEFAULT_SCREEN_ENABLED 1
@@ -166,7 +166,7 @@
 //    SCR_TIME_ELAPSED
 //    SCR_TIME_RIDING
 
-/* Backup
+ //Backup
 #define TEXT_SCREEN_ITEMS { \
     SCR_FAULT_CODE, \
     SCR_MOSFET_TEMPERATURE, \
@@ -184,19 +184,9 @@
     SCR_TIME_RIDING, \
 }
 
-*/
 
+/*
 #define TEXT_SCREEN_ITEMS { \
-    SCR_CELL_VOLTAGE, \
-    SCR_CELL_VOLTAGE, \
-    SCR_CELL_VOLTAGE, \
-    SCR_CELL_VOLTAGE, \
-    SCR_CELL_VOLTAGE, \
-    SCR_CELL_VOLTAGE, \
-    SCR_CELL_VOLTAGE, \
-    SCR_CELL_VOLTAGE, \
-    SCR_CELL_VOLTAGE, \
-    SCR_CELL_VOLTAGE, \
     SCR_MOSFET_TEMPERATURE, \
     SCR_MIN_TOTAL_VOLTAGE, \
     SCR_AVG_CELL_VOLTAGE, \
@@ -206,7 +196,7 @@
     SCR_AVG_SPEED, \
     SCR_TIME_ELAPSED, \
     SCR_TIME_RIDING, \
-}
+}*/
 
 // Big font is only recommended for landscape orientation. 9 lines fit on the screen then.
 // Some items overflow the right order. You may want to adjust the labels in davega_text_screen.cpp.

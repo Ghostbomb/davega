@@ -76,17 +76,23 @@ void DavegaSimpleHorizontalScreen::update(t_davega_data *data) {
     else
         //dtostrf(data->voltage, 4, 1, fmt);
         { if (cellTick == 5){
+            if (data->Cell_Voltage_IC2[0] != 0.00){
             if (cellIndex == 0) {
-            _tft->drawText(158, 115, "BATTERY V ", COLOR_WHITE);
-            dtostrf(data->voltage, 4, 1, fmt); 
-            cellIndex++;
-          } else {
-            int cell = cellIndex ++;
-            String spacer = (cell < 10) ? " " : "";
-            String label = "CELL  " + spacer + String(cell) + " V";
-            _tft->drawText(158, 115, label, COLOR_WHITE);
-            dtostrf(data->Cell_Voltage_IC2[cell-1], 4, 1, fmt); if (cellIndex == 11) cellIndex = 0; 
-          }
+                _tft->drawText(158, 115, "BATTERY V ", COLOR_WHITE);
+                dtostrf(data->voltage, 4, 1, fmt); 
+                cellIndex++;
+                } else {
+                int cell = cellIndex ++;
+                String spacer = (cell < 10) ? " " : "";
+                String label = "CELL  " + spacer + String(cell) + " V";
+                _tft->drawText(158, 115, label, COLOR_WHITE);
+                dtostrf(data->Cell_Voltage_IC2[cell-1], 4, 1, fmt); if (cellIndex == 11) cellIndex = 0; 
+            }
+            } else {
+                _tft->drawText(158, 115, "BATTERY V ", COLOR_WHITE);
+                dtostrf(data->voltage, 4, 1, fmt); 
+                cellIndex++;
+            }
           tft_util_draw_number(_tft, " ", 163, 86, progress_to_color(data->mah_reset_progress, _tft), COLOR_BLACK, 2, 5);
           tft_util_draw_number(_tft, fmt, 163, 86, progress_to_color(data->mah_reset_progress, _tft), COLOR_BLACK, 2, 5);
           cellTick = 0;
